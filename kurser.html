@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurser | Tomorrownow Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f5e6d3;
+    --sand-dark: #e8d5bd;
+    --brown: #2c1a0e;
+    --brown-mid: #5c3d1e;
+    --orange: #e86a1a;
+    --orange-light: #f5956a;
+    --cream: #fdf6ee;
+    --white: #ffffff;
+    --text: #2c1a0e;
+    --text-muted: #7a5c3e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 246, 238, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(44,26,14,0.08);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--orange); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--brown-mid); }
+
+  /* HERO */
+  .hero {
+    background: var(--brown);
+    padding: 5rem 2.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 0%, rgba(232,106,26,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--sand);
+    line-height: 1.15;
+    max-width: 680px;
+    margin: 0 auto 1.25rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--orange-light);
+  }
+
+  .hero p {
+    font-size: 1rem;
+    color: rgba(245,230,211,0.7);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .filter-btn {
+    background: rgba(245,230,211,0.1);
+    border: 1px solid rgba(245,230,211,0.2);
+    color: rgba(245,230,211,0.8);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.4rem 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+  }
+
+
+
+  /* COURSES SECTION */
+  .courses-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--brown);
+    line-height: 1.2;
+  }
+
+  .section-title em { font-style: italic; color: var(--orange); }
+
+  .view-all {
+    font-size: 0.85rem;
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--orange);
+  }
+
+  /* FEATURED COURSE */
+  .featured-course {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(44,26,14,0.08);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 24px rgba(44,26,14,0.06);
+  }
+
+  .featured-video {
+    position: relative;
+    background: var(--brown);
+    aspect-ratio: 16/10;
+  }
+
+  .featured-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--orange);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 50px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .featured-info {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--white);
+  }
+
+  .course-category {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.75rem;
+  }
+
+  .featured-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--brown);
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .featured-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .course-meta {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .meta-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s;
+    align-self: flex-start;
+  }
+  .btn-primary:hover { background: var(--brown-mid); transform: translateY(-1px); }
+
+  /* COURSE GRID */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .course-card {
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(44,26,14,0.07);
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 2px 12px rgba(44,26,14,0.04);
+  }
+
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(44,26,14,0.1);
+  }
+
+  .card-video {
+    position: relative;
+    background: var(--brown);
+    aspect-ratio: 16/9;
+  }
+
+  .card-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .card-level {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(44,26,14,0.75);
+    color: var(--sand);
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 50px;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .card-cat {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--brown);
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-stats {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .card-stat {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sand-dark); flex-shrink: 0; }
+
+  .btn-card {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--orange);
+    text-decoration: none;
+    border: 1px solid var(--orange);
+    padding: 5px 14px;
+    border-radius: 50px;
+    transition: all 0.2s;
+  }
+  .btn-card:hover { background: var(--orange); color: white; }
+
+  /* COMING SOON SECTION */
+  .coming-section {
+    background: var(--sand);
+    padding: 4rem 2rem;
+  }
+
+  .coming-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .coming-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .coming-card {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(44,26,14,0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coming-card::before {
+    content: 'Snart';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--brown);
+    color: var(--sand);
+    padding: 3px 8px;
+    border-radius: 50px;
+  }
+
+  .coming-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .coming-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--brown);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 100%, rgba(232,106,26,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--sand);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section h2 em { font-style: italic; color: var(--orange-light); }
+
+  .cta-section p {
+    font-size: 0.95rem;
+    color: rgba(245,230,211,0.65);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--brown);
+    border-top: 1px solid rgba(245,230,211,0.1);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p { font-size: 0.8rem; color: rgba(245,230,211,0.4); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .featured-course { grid-template-columns: 1fr; }
+    .featured-video { aspect-ratio: 16/9; }
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .stats-bar { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Tomorrow<span>now</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li><a href="om-oss.html">Om oss</a></li>
+    <li><a href="#" class="active">Kurser</a></li>
+    <li><a href="#">Community</a></li>
+    <li><a href="#">Innovation Skåne</a></li>
+  </ul>
+  <a href="kurs-spelare.html" class="nav-cta">Kom igång →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-label">Kurser &amp; utbildning</span>
+  <h1>Lär dig det som formar <em>framtidens</em> arbetsmarknad</h1>
+  <p>Videokurser inom webbutveckling, UX &amp; Design och AI &amp; Innovation — byggda för dig som vill växa.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCourses('alla')">Alla kurser</button>
+    <button class="filter-btn" onclick="filterCourses('webb')">Webbutveckling</button>
+    <button class="filter-btn" onclick="filterCourses('ux')">UX &amp; Design</button>
+    <button class="filter-btn" onclick="filterCourses('ai')">AI &amp; Innovation</button>
+    <button class="filter-btn" onclick="filterCourses('hallbarhet')">Hållbarhet</button>
+  </div>
+</section>
+
+
+
+<!-- COURSES -->
+<section class="courses-section">
+
+  <!-- FEATURED -->
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Veckans kurs</div>
+      <div class="section-title">Redaktörens <em>val</em></div>
+    </div>
+  </div>
+
+  <div class="featured-course reveal">
+    <div class="featured-video">
+      <span class="featured-badge">Populär</span>
+      <iframe src="https://www.youtube.com/embed/qz0aGYrrlhU" title="Webbutveckling intro" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="featured-info">
+      <div class="course-category">Webbutveckling</div>
+      <h2>Bygg moderna hemsidor från grunden</h2>
+      <p>Lär dig HTML, CSS och grunderna i WordPress — en kurs för dig som vill ta din första eller nästa stora kliv inom webbutveckling.</p>
+      <div class="course-meta">
+        <span class="meta-item"><span class="meta-dot"></span> 12 videolektioner</span>
+        <span class="meta-item"><span class="meta-dot"></span> Nybörjarvänlig</span>
+        <span class="meta-item"><span class="meta-dot"></span> Ca 4 timmar</span>
+      </div>
+      <a href="kurs-spelare.html" class="btn-primary">Starta kurs →</a>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="section-header reveal" style="margin-top: 3rem;">
+    <div>
+      <div class="section-label">Alla kurser</div>
+      <div class="section-title">Utforska &amp; <em>utvecklas</em></div>
+    </div>
+    <a href="#" class="view-all">Se alla →</a>
+  </div>
+
+  <div class="course-grid" id="courseGrid">
+
+    <div class="course-card reveal" data-cat="ux">
+      <div class="card-video">
+        <iframe src="https://www.youtube.com/embed/c9Wg6Cb_YlU" title="UX Design" allowfullscreen loading="lazy"></iframe>
+        <span class="card-level">Nybörjare</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">UX &amp; Design</div>
+        <h3>Grunderna i användarcentrerad design</h3>
+        <p>Förstå hur du designar digitala upplevelser som faktiskt fungerar för riktiga människor.</p>
+        <div class="card-footer">
+          <div class="card-stats">
+            <span class="card-stat"><span class="card-dot"></span> 8 lektioner</span>
+            <span class="card-stat"><span class="card-dot"></span> 2,5 h</span>
+          </div>
+          <a href="kurs-spelare.html" class="btn-card">Starta →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card reveal" data-cat="ai">
+      <div class="card-video">
+        <iframe src="https://www.youtube.com/embed/ad79nYk2keg" title="AI intro" allowfullscreen loading="lazy"></iframe>
+        <span class="card-level">Alla nivåer</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">AI &amp; Innovation</div>
+        <h3>AI som verktyg för förändring</h3>
+        <p>Lär dig använda AI praktiskt i din vardag och ditt yrke — utan att du behöver vara tekniker.</p>
+        <div class="card-footer">
+          <div class="card-stats">
+            <span class="card-stat"><span class="card-dot"></span> 10 lektioner</span>
+            <span class="card-stat"><span class="card-dot"></span> 3 h</span>
+          </div>
+          <a href="kurs-spelare.html" class="btn-card">Starta →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card reveal" data-cat="hallbarhet">
+      <div class="card-video">
+        <iframe src="https://www.youtube.com/embed/B-nEYsyRlYo" title="Hållbar utveckling" allowfullscreen loading="lazy"></iframe>
+        <span class="card-level">Mellanivå</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Hållbarhet</div>
+        <h3>Hållbar innovation i praktiken</h3>
+        <p>Hur skapar vi lösningar som är bra för både människa och planet? En kurs om systemtänkande och ansvar.</p>
+        <div class="card-footer">
+          <div class="card-stats">
+            <span class="card-stat"><span class="card-dot"></span> 9 lektioner</span>
+            <span class="card-stat"><span class="card-dot"></span> 3,5 h</span>
+          </div>
+          <a href="kurs-spelare.html" class="btn-card">Starta →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card reveal" data-cat="webb">
+      <div class="card-video">
+        <iframe src="https://www.youtube.com/embed/G3e-cpL7ofc" title="CSS & Design" allowfullscreen loading="lazy"></iframe>
+        <span class="card-level">Nybörjare</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">Webbutveckling</div>
+        <h3>CSS &amp; modern layout</h3>
+        <p>Från grundläggande styling till avancerade Flexbox- och Grid-layouter — gör dina sidor snygga.</p>
+        <div class="card-footer">
+          <div class="card-stats">
+            <span class="card-stat"><span class="card-dot"></span> 14 lektioner</span>
+            <span class="card-stat"><span class="card-dot"></span> 5 h</span>
+          </div>
+          <a href="kurs-spelare.html" class="btn-card">Starta →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card reveal" data-cat="ux">
+      <div class="card-video">
+        <iframe src="https://www.youtube.com/embed/5IanQIwhA2E" title="Figma kurs" allowfullscreen loading="lazy"></iframe>
+        <span class="card-level">Nybörjare</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">UX &amp; Design</div>
+        <h3>Figma från grunden</h3>
+        <p>Lär dig världens mest använda designverktyg och börja skapa prototyper direkt.</p>
+        <div class="card-footer">
+          <div class="card-stats">
+            <span class="card-stat"><span class="card-dot"></span> 11 lektioner</span>
+            <span class="card-stat"><span class="card-dot"></span> 4 h</span>
+          </div>
+          <a href="kurs-spelare.html" class="btn-card">Starta →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card reveal" data-cat="ai">
+      <div class="card-video">
+        <iframe src="https://www.youtube.com/embed/2IK3DFHRFfw" title="Framtidens jobb" allowfullscreen loading="lazy"></iframe>
+        <span class="card-level">Alla nivåer</span>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">AI &amp; Innovation</div>
+        <h3>Framtidens arbetsmarknad</h3>
+        <p>Vilka kompetenser behövs imorgon? En kurs om omställning, lärande och att navigera förändring.</p>
+        <div class="card-footer">
+          <div class="card-stats">
+            <span class="card-stat"><span class="card-dot"></span> 7 lektioner</span>
+            <span class="card-stat"><span class="card-dot"></span> 2 h</span>
+          </div>
+          <a href="kurs-spelare.html" class="btn-card">Starta →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<section class="coming-section">
+  <div class="coming-inner">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label">På gång</div>
+        <div class="section-title">Kommande <em>kurser</em></div>
+      </div>
+    </div>
+    <div class="coming-grid">
+      <div class="coming-card reveal">
+        <h4>Ledarskap i förändring</h4>
+        <p>Hur leder du ett team när omvärlden förändras snabbt? Praktiska verktyg och strategier.</p>
+      </div>
+      <div class="coming-card reveal">
+        <h4>Digital kommunikation</h4>
+        <p>Bygg ett personligt varumärke online och kommunicera med genomslagskraft.</p>
+      </div>
+      <div class="coming-card reveal">
+        <h4>Cirkulär ekonomi</h4>
+        <p>Förstå och tillämpa principer för en ekonomi som håller över tid.</p>
+      </div>
+      <div class="coming-card reveal">
+        <h4>Projektledning &amp; agilitet</h4>
+        <p>Moderna metoder för att driva projekt framåt — från idé till leverans.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Redo att ta nästa <em>steg?</em></h2>
+  <p>Gå med i ett community av nyfikna, drivna människor som formar morgondagen tillsammans.</p>
+  <a href="kurs-spelare.html" class="btn-primary">Kom igång idag →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="logo" style="color: var(--sand);">Tomorrow<span>now</span></a>
+  <p>© 2026 Tomorrownow Academy · Malmö, Sverige</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+
+
+  // Filter
+  function filterCourses(cat) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.course-card').forEach(card => {
+      if (cat === 'alla' || card.dataset.cat === cat) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

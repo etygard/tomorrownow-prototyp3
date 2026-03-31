@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om oss – Tomorrownow Academy</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f5e6d3;
+  --bg-light: #faf3eb;
+  --bg-mid:   #eeddc8;
+  --orange:   #e85d04;
+  --orange2:  #ff9a3c;
+  --brown-dk: #3d2b1f;
+  --text:     #4a3020;
+  --text-lt:  #7a5a42;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "tomorrownow";
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) rotate(-12deg);
+  font-size: 12vw;
+  font-weight: 900;
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+  color: var(--orange);
+}
+
+/* ====== HEADER ====== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  height: 72px;
+  background: rgba(245,230,211,0.92);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(232,133,90,0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+  from { opacity:0; transform:translateY(-100%); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--orange);
+  text-decoration: none;
+}
+.logo em { color: var(--brown-dk); font-style: normal; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--brown-dk); border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+nav { display: flex; align-items: center; gap: 6px; }
+nav a {
+  padding: 8px 16px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 50px;
+  transition: 0.2s;
+}
+nav a:hover, nav a.active { background: rgba(232,93,4,0.1); color: var(--orange); }
+nav .nav-cta {
+  background: var(--orange);
+  color: white !important;
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(232,93,4,0.3);
+}
+nav .nav-cta:hover { background: #d45200; transform: translateY(-2px); }
+
+/* ====== PAGE HERO ====== */
+.page-hero {
+  position: relative;
+  padding: 100px 20px 80px;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--bg-light) 0%, var(--bg) 60%, var(--bg-mid) 100%);
+}
+
+/* Animated background rings */
+.page-hero::before {
+  content: "";
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  border: 2px solid rgba(232,93,4,0.08);
+  animation: ringPulse 6s ease-in-out infinite alternate;
+}
+.page-hero::after {
+  content: "";
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 350px; height: 350px;
+  border-radius: 50%;
+  border: 2px solid rgba(232,93,4,0.06);
+  animation: ringPulse 8s ease-in-out infinite alternate-reverse;
+}
+@keyframes ringPulse {
+  from { transform: scale(1); opacity: 0.5; }
+  to   { transform: scale(1.1); opacity: 1; }
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(232,93,4,0.1);
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(232,93,4,0.2);
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.page-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 6vw, 72px);
+  color: var(--brown-dk);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+.page-hero h1 span { color: var(--orange); }
+.page-hero h1 em {
+  font-style: italic;
+  color: var(--text-lt);
+}
+
+.page-hero-sub {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-lt);
+  animation: fadeUp 0.7s 0.6s ease both;
+}
+
+.page-hero-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.8s ease both;
+}
+
+/* Decorative floating image in hero */
+.hero-img-float {
+  margin: 60px auto 0;
+  max-width: 700px;
+  position: relative;
+  animation: fadeUp 0.9s 1.0s ease both;
+}
+.hero-img-float img {
+  width: 100%;
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(180,90,30,0.15);
+}
+/* Floating label on image */
+.img-badge {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(232,93,4,0.4);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+/* ====== STATS BAR ====== */
+.stats-bar {
+  background: var(--brown-dk);
+  padding: 50px 20px;
+  margin-top: 60px;
+}
+.stats-bar-inner {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  color: var(--orange2);
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* ====== INTRO SECTION ====== */
+.intro-section {
+  padding: 100px 20px;
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.intro-text .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+.intro-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--brown-dk);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.intro-text h2 span { color: var(--orange); }
+.intro-text p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text-lt);
+  margin-bottom: 20px;
+}
+
+.intro-img {
+  position: relative;
+}
+.intro-img img {
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(180,90,30,0.12);
+  transition: transform 0.5s ease;
+}
+.intro-img:hover img { transform: scale(1.02); }
+
+/* Floating card on image */
+.float-card {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background: white;
+  border-radius: 18px;
+  padding: 20px 24px;
+  box-shadow: 0 16px 50px rgba(180,90,30,0.14);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 200px;
+}
+.float-card-icon { font-size: 32px; }
+.float-card-text { font-size: 13px; color: var(--text-lt); }
+.float-card-text strong { display: block; font-size: 15px; color: var(--brown-dk); margin-bottom: 2px; }
+
+/* ====== VALUES SECTION ====== */
+.values-section {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, var(--bg-mid), #e8d4b8);
+  position: relative;
+  overflow: hidden;
+}
+.values-section::before {
+  content: "";
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(232,93,4,0.05);
+  pointer-events: none;
+}
+
+.values-inner {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.values-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+.values-header .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+.values-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--brown-dk);
+}
+.values-header h2 span { color: var(--orange); }
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.value-card {
+  background: var(--bg-light);
+  border-radius: 22px;
+  padding: 44px 32px;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(180,90,30,0.07);
+  border: 1px solid rgba(232,93,4,0.08);
+  transition: transform 0.35s cubic-bezier(.34,1.4,.64,1), box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.value-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--orange2));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.value-card:hover::after { transform: scaleX(1); }
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 55px rgba(180,90,30,0.16);
+}
+
+.value-icon {
+  font-size: 44px;
+  margin-bottom: 20px;
+  display: block;
+  animation: iconBounce 3s ease-in-out infinite;
+}
+@keyframes iconBounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.value-card:nth-child(2) .value-icon { animation-delay: 0.5s; }
+.value-card:nth-child(3) .value-icon { animation-delay: 1s; }
+.value-card:nth-child(4) .value-icon { animation-delay: 1.5s; }
+
+.value-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--brown-dk);
+  margin-bottom: 14px;
+}
+.value-card p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-lt);
+}
+
+/* ====== STORY SECTION (zigzag) ====== */
+.story-section {
+  padding: 100px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.story-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.story-header .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+.story-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--brown-dk);
+}
+
+.story-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+.story-row.reverse { direction: rtl; }
+.story-row.reverse > * { direction: ltr; }
+
+.story-img {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(180,90,30,0.12);
+}
+.story-img img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.story-img:hover img { transform: scale(1.04); }
+
+/* Number badge on story image */
+.story-num {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(232,93,4,0.4);
+}
+
+.story-text .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+.story-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 3vw, 32px);
+  color: var(--brown-dk);
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.story-text p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text-lt);
+  margin-bottom: 16px;
+}
+
+/* ====== QUOTE STRIP ====== */
+.quote-strip {
+  background: var(--brown-dk);
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.quote-strip::before {
+  content: '"';
+  position: absolute;
+  top: -20px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 200px;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.quote-strip blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3.5vw, 34px);
+  font-style: italic;
+  color: white;
+  max-width: 800px;
+  margin: 0 auto 24px;
+  line-height: 1.5;
+}
+.quote-strip blockquote span { color: var(--orange2); }
+.quote-strip cite {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  font-style: normal;
+  letter-spacing: 1px;
+}
+
+/* ====== TEAM / APPROACH SECTION ====== */
+.approach-section {
+  padding: 100px 20px;
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.approach-img {
+  position: relative;
+}
+.approach-img img {
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(180,90,30,0.12);
+  transition: transform 0.5s ease;
+}
+.approach-img:hover img { transform: scale(1.02); }
+
+/* Decorative ring behind image */
+.approach-img::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border-radius: 32px;
+  border: 2px dashed rgba(232,93,4,0.2);
+  animation: spin 30s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.approach-text .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+.approach-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--brown-dk);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.approach-text h2 span { color: var(--orange); }
+.approach-text p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text-lt);
+  margin-bottom: 20px;
+}
+
+/* Feature list */
+.feature-list {
+  list-style: none;
+  margin: 28px 0 36px;
+}
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--text-lt);
+  line-height: 1.6;
+}
+.feature-list li::before {
+  content: "✦";
+  color: var(--orange);
+  font-size: 12px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ====== CTA SECTION ====== */
+.cta-section {
+  padding: 100px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--bg-mid) 0%, var(--bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,93,4,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+.cta-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  color: var(--brown-dk);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.cta-section h2 span { color: var(--orange); }
+.cta-section p {
+  max-width: 560px;
+  margin: 0 auto 40px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-lt);
+}
+.cta-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ====== BUTTONS ====== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 34px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  top:0; left:-80%;
+  width:60%; height:100%;
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+.btn:hover::before { left: 160%; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white;
+  box-shadow: 0 8px 24px rgba(232,93,4,0.35);
+}
+.btn-primary:hover { transform:translateY(-4px); box-shadow:0 16px 36px rgba(232,93,4,0.45); }
+
+.btn-secondary {
+  background: rgba(232,93,4,0.1);
+  color: var(--orange);
+  border: 1.5px solid rgba(232,93,4,0.25);
+}
+.btn-secondary:hover { background:rgba(232,93,4,0.15); transform:translateY(-3px); }
+
+.btn-white {
+  background: white;
+  color: var(--orange);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.btn-white:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.15); }
+
+/* ====== FOOTER ====== */
+footer {
+  background: var(--brown-dk);
+  text-align: center;
+  padding: 50px 20px;
+}
+footer p { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 16px; }
+.social a {
+  font-size: 20px; margin: 0 10px; color: var(--orange2);
+  display: inline-block; transition: transform 0.3s, color 0.3s;
+}
+.social a:hover { transform: scale(1.3) rotate(-5deg); color: white; }
+
+/* ====== SCROLL REVEAL ====== */
+.reveal { opacity:0; transform:translateY(36px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-child { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+.reveal-child.visible { opacity:1; transform:translateY(0); }
+.d1{transition-delay:0.1s;} .d2{transition-delay:0.22s;} .d3{transition-delay:0.34s;} .d4{transition-delay:0.46s;}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ====== MOBILE ====== */
+@media (max-width: 768px) {
+  header { padding: 0 20px; height: 64px; }
+  .hamburger { display: flex; }
+  nav {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(245,230,211,0.98);
+    backdrop-filter: blur(20px);
+    padding: 16px 20px 28px;
+    border-bottom: 1px solid rgba(232,93,4,0.15);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    gap: 4px; z-index: 999;
+  }
+  nav.open { display: flex; }
+  nav a { font-size: 15px; padding: 12px 18px; }
+
+  .page-hero { padding: 70px 16px 60px; }
+  .page-hero h1 { font-size: clamp(30px, 8vw, 48px); }
+  .page-hero-btns { flex-direction: column; align-items: center; }
+  .page-hero-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+
+  .hero-img-float { margin-top: 40px; }
+
+  .stats-bar-inner { gap: 28px; }
+
+  .intro-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 16px; }
+  .float-card { left: 12px; bottom: -16px; min-width: 160px; padding: 14px 18px; }
+
+  .values-section { padding: 60px 16px; }
+  .values-grid { grid-template-columns: 1fr; gap: 18px; }
+
+  .story-section { padding: 60px 16px; }
+  .story-row { grid-template-columns: 1fr; gap: 32px; }
+  .story-row.reverse { direction: ltr; }
+
+  .approach-section { grid-template-columns: 1fr; gap: 50px; padding: 60px 16px; }
+  .approach-img::before { display: none; }
+
+  .cta-section { padding: 70px 16px; }
+  .cta-btns { flex-direction: column; align-items: center; }
+  .cta-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+
+  .story-header, .values-header { margin-bottom: 44px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" class="logo">Tomorrow<em>now</em></a>
+  <button class="hamburger" id="menuBtn" aria-label="Meny">
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="mainNav">
+    <a href="index.html">Start</a>
+    <a href="om-oss.html" class="active">Om oss</a>
+    <a href="kurser.html">Kurser</a>
+    <a href="#">Community</a>
+    <a href="#">Innovation Skåne</a>
+    <a href="kurser.html" class="nav-cta">Kom igång →</a>
+  </nav>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-badge">Om oss</div>
+  <h1>Vi tror på lärande<br>som <span>förändrar</span> <em>världen</em></h1>
+  <p class="page-hero-sub">Tomorrownow Academy är mer än en läroplattform – vi är en rörelse för människor som vill växa, bidra och skapa en hållbar framtid.</p>
+  <div class="page-hero-btns">
+    <a href="kurser.html" class="btn btn-primary">Utforska kurserna →</a>
+    <a href="#vår-historia" class="btn btn-secondary">Vår historia</a>
+  </div>
+  <div class="hero-img-float reveal">
+    <img src="om_oss_2.png" alt="Tomorrownow Academy – lärande i praktiken">
+    <div class="img-badge">🌱 Tillsammans växer vi längre</div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar reveal">
+  <div class="stats-bar-inner">
+    <div class="stat-item reveal-child d1">
+      <span class="stat-num">500+</span>
+      <div class="stat-label">Aktiva kursdeltagare</div>
+    </div>
+    <div class="stat-item reveal-child d2">
+      <span class="stat-num">30+</span>
+      <div class="stat-label">Videokurser</div>
+    </div>
+    <div class="stat-item reveal-child d3">
+      <span class="stat-num">95%</span>
+      <div class="stat-label">Nöjda deltagare</div>
+    </div>
+    <div class="stat-item reveal-child d4">
+      <span class="stat-num">3</span>
+      <div class="stat-label">Fokusområden</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO SECTION -->
+<section class="intro-section reveal" id="vår-historia">
+  <div class="intro-text">
+    <p class="label">Vad vi gör</p>
+    <h2>En plattform byggd för <span>din utveckling</span></h2>
+    <p>Tomorrownow Academy grundades med en enkel men kraftfull övertygelse: att rätt kunskap i rätt tid kan förändra ett helt yrkesliv. Vi erbjuder videokurser inom webbutveckling, UX & Design och AI & Innovation – områden som formar morgondagens arbetsmarknad.</p>
+    <p>Våra kurser är skapade av och för yrkesverksamma som vill ta nästa steg – utan att behöva lämna jobbet eller livet bakom sig. Allt lärande sker i din takt, på dina villkor.</p>
+    <a href="#" class="btn btn-primary" style="margin-top:10px;">Se alla kurser →</a>
+  </div>
+  <div class="intro-img">
+    <img src="om_oss_1.png" alt="Lärande och samarbete">
+    <div class="float-card">
+      <div class="float-card-icon">🎓</div>
+      <div class="float-card-text">
+        <strong>Flexibelt lärande</strong>
+        Lär dig i din egen takt
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES SECTION -->
+<section class="values-section">
+  <div class="values-inner">
+    <div class="values-header reveal">
+      <p class="label">Det vi står för</p>
+      <h2>Våra <span>kärnvärden</span></h2>
+    </div>
+    <div class="values-grid reveal">
+      <div class="value-card reveal-child d1">
+        <span class="value-icon">🌱</span>
+        <h3>Hållbar tillväxt</h3>
+        <p>Vi tror på lärande som inte bara gynnar individen – utan också organisationen, samhället och planeten. Kunskap som håller över tid.</p>
+      </div>
+      <div class="value-card reveal-child d2">
+        <span class="value-icon">🤝</span>
+        <h3>Samarbete</h3>
+        <p>Ingen växer ensam. Vi bygger en community där deltagare stöttar varandra, delar insikter och skapar nätverk som varar livet ut.</p>
+      </div>
+      <div class="value-card reveal-child d3">
+        <span class="value-icon">🚀</span>
+        <h3>Mod att förändras</h3>
+        <p>Att lära sig nytt kräver mod. Vi skapar en trygg miljö där det är okej att misslyckas, omvärdera och börja om – starkare än förut.</p>
+      </div>
+      <div class="value-card reveal-child d4">
+        <span class="value-icon">✨</span>
+        <h3>Kvalitet alltid</h3>
+        <p>Varje kurs, varje video och varje uppgift är skapad med omsorg. Vi kompromissar aldrig med kvaliteten på det vi levererar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="story-section" id="story">
+  <div class="story-header reveal">
+    <p class="label">Hur vi arbetar</p>
+    <h2>Från idé till <span style="color:var(--orange)">förändring</span></h2>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="story-row reveal">
+    <div class="story-img">
+      <img src="om_oss_3.png" alt="Videokurser i praktiken">
+      <div class="story-num">01</div>
+    </div>
+    <div class="story-text">
+      <p class="label">Videokurser</p>
+      <h3>Lär dig av experter – när det passar dig</h3>
+      <p>Våra kurser är producerade av erfarna yrkespersoner och pedagoger som brinner för sitt område. Varje lektion är kortare, tydligare och mer praktisk än traditionell utbildning.</p>
+      <p>Du lär dig inte bara teorin – du får verktyg och metoder du kan använda direkt på jobbet, redan imorgon.</p>
+    </div>
+  </div>
+
+  <!-- Row 2 (reversed) -->
+  <div class="story-row reverse reveal">
+    <div class="story-img">
+      <img src="om_oss_4.png" alt="Din resa mot toppen">
+      <div class="story-num">02</div>
+    </div>
+    <div class="story-text">
+      <p class="label">Din resa</p>
+      <h3>Varje steg tar dig <span style="color:var(--orange)">högre</span></h3>
+      <p>Vi tror att yrkesmässig utveckling är en resa – inte ett mål. Tomorrownow Academy följer dig från nybörjare till expert, med kurser och utmaningar som anpassas efter din nivå.</p>
+      <p>Oavsett om du vill byta karriär, växa i din nuvarande roll eller bara lära dig något nytt – vi finns här varje steg på vägen.</p>
+      <a href="#" class="btn btn-secondary" style="margin-top:10px;">Starta din resa →</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE STRIP -->
+<div class="quote-strip reveal">
+  <blockquote>
+    "Kunskap är det enda vi kan ge bort<br>och ändå <span>behålla för alltid.</span>"
+  </blockquote>
+  <cite>— Tomorrownow Academy</cite>
+</div>
+
+<!-- APPROACH SECTION -->
+<section class="approach-section reveal">
+  <div class="approach-img">
+    <img src="om_oss_1.png" alt="Vårt arbetssätt">
+  </div>
+  <div class="approach-text">
+    <p class="label">Vårt arbetssätt</p>
+    <h2>Utbildning som <span>gör skillnad</span></h2>
+    <p>Vi designar varje kurs med tre frågor i åtanke: Varför behöver du det här? Hur ska du använda det? Vad blir resultatet?</p>
+    <ul class="feature-list">
+      <li>Korta, fokuserade videolektioner – max 15 minuter</li>
+      <li>Praktiska övningar direkt kopplade till arbetslivet</li>
+      <li>Certifikat och erkännande vid kursavslut</li>
+      <li>Community och mentorer tillgängliga 24/7</li>
+      <li>Kurser uppdateras kontinuerligt med ny kunskap</li>
+    </ul>
+    <a href="kurser.html" class="btn btn-primary">Se kurskatalogen →</a>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section reveal">
+  <p class="label">Redo att börja?</p>
+  <h2>Din framtid börjar<br>med ett <span>första steg</span></h2>
+  <p>Anslut dig till hundratals yrkespersoner som redan växer med Tomorrownow Academy. Starta gratis idag – inga förkunskaper krävs.</p>
+  <div class="cta-btns">
+    <a href="kurser.html" class="btn btn-primary">Kom igång gratis →</a>
+    <a href="index.html" class="btn btn-secondary">Tillbaka till startsidan</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Tomorrownow Academy &nbsp;·&nbsp; Malmö, Sverige</p>
+  <div class="social">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mainNav = document.getElementById('mainNav');
+  menuBtn.addEventListener('click', () => {
+    mainNav.classList.toggle('open');
+    menuBtn.classList.toggle('open');
+  });
+  mainNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      menuBtn.classList.remove('open');
+    });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.reveal-child').forEach(c => c.classList.add('visible'));
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Animated counter for stats
+  function animateCounter(el, target, suffix = '') {
+    let start = 0;
+    const duration = 1800;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(start) + suffix;
+    }, 16);
+  }
+
+  // Trigger counters when stats bar is visible
+  const statsObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelector('.stat-item:nth-child(1) .stat-num') && animateCounter(document.querySelector('.stat-item:nth-child(1) .stat-num'), 500, '+');
+        document.querySelector('.stat-item:nth-child(2) .stat-num') && animateCounter(document.querySelector('.stat-item:nth-child(2) .stat-num'), 30, '+');
+        document.querySelector('.stat-item:nth-child(3) .stat-num') && animateCounter(document.querySelector('.stat-item:nth-child(3) .stat-num'), 95, '%');
+        document.querySelector('.stat-item:nth-child(4) .stat-num') && animateCounter(document.querySelector('.stat-item:nth-child(4) .stat-num'), 3, '');
+        statsObs.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsObs.observe(statsBar);
+</script>
+
+</body>
+</html>

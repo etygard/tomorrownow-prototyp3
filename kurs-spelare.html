@@ -1,0 +1,1027 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kursettan | Tomorrownow Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f5e6d3;
+    --sand-dark: #e8d5bd;
+    --brown: #2c1a0e;
+    --brown-mid: #5c3d1e;
+    --orange: #e86a1a;
+    --orange-light: #f5956a;
+    --cream: #fdf6ee;
+    --white: #ffffff;
+    --text: #2c1a0e;
+    --text-muted: #7a5c3e;
+    --sidebar-w: 300px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    height: 56px;
+    background: var(--brown);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid rgba(245,230,211,0.1);
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: rgba(245,230,211,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-btn:hover { color: var(--sand); }
+  .back-btn svg { width: 14px; height: 14px; }
+
+  .topbar-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(245,230,211,0.15);
+  }
+
+  .course-title-top {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--sand);
+    letter-spacing: -0.01em;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .progress-label {
+    font-size: 0.75rem;
+    color: rgba(245,230,211,0.5);
+  }
+
+  .progress-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(245,230,211,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 18%;
+    background: var(--orange);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-pct {
+    font-size: 0.75rem;
+    color: var(--orange-light);
+    font-weight: 500;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* LAYOUT */
+  .layout {
+    display: flex;
+    height: calc(100vh - 56px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--white);
+    border-right: 1px solid rgba(44,26,14,0.08);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sand-dark) transparent;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--sand-dark); border-radius: 2px; }
+
+  .sidebar-header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid rgba(44,26,14,0.06);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 10;
+  }
+
+  .sidebar-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--brown);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .overall-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .overall-bar {
+    flex: 1;
+    height: 5px;
+    background: var(--sand);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .overall-fill {
+    height: 100%;
+    width: 18%;
+    background: var(--orange);
+    border-radius: 3px;
+  }
+
+  .overall-pct {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* CHAPTERS */
+  .chapter {
+    border-bottom: 1px solid rgba(44,26,14,0.05);
+  }
+
+  .chapter-title {
+    padding: 0.85rem 1.25rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .lesson {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.55rem 1.25rem 0.55rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .lesson:hover { background: rgba(232,106,26,0.05); }
+
+  .lesson.active {
+    background: rgba(232,106,26,0.08);
+    border-left: 3px solid var(--orange);
+    padding-left: calc(1rem - 3px);
+  }
+
+  .lesson-circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sand-dark);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .lesson.done .lesson-circle {
+    background: var(--orange);
+    border-color: var(--orange);
+  }
+
+  .lesson.active .lesson-circle {
+    border-color: var(--orange);
+    background: rgba(232,106,26,0.1);
+  }
+
+  .check-icon {
+    width: 9px;
+    height: 9px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .play-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  .lesson-name {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+    flex: 1;
+  }
+
+  .lesson.active .lesson-name { color: var(--brown); font-weight: 500; }
+  .lesson.done .lesson-name { color: var(--text-muted); }
+
+  /* MAIN CONTENT */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--sand-dark) transparent;
+  }
+
+  .main::-webkit-scrollbar { width: 4px; }
+  .main::-webkit-scrollbar-track { background: transparent; }
+  .main::-webkit-scrollbar-thumb { background: var(--sand-dark); border-radius: 2px; }
+
+  /* VIDEO SECTION */
+  .video-section {
+    background: var(--brown);
+    padding: 2.5rem 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 0%, rgba(232,106,26,0.12) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .lesson-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .chapter-pill {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-light);
+    background: rgba(232,106,26,0.15);
+    padding: 3px 10px;
+    border-radius: 50px;
+  }
+
+  .lesson-num {
+    font-size: 0.75rem;
+    color: rgba(245,230,211,0.4);
+  }
+
+  .video-section h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--sand);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    position: relative;
+  }
+
+  .video-container {
+    position: relative;
+    max-width: 780px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  }
+
+  .video-container iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+    border: none;
+  }
+
+  .video-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    max-width: 780px;
+    position: relative;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: rgba(245,230,211,0.55);
+    background: rgba(245,230,211,0.07);
+    border: 1px solid rgba(245,230,211,0.12);
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { background: rgba(245,230,211,0.12); color: var(--sand); }
+
+  .mark-done-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+    background: var(--orange);
+    border: none;
+    padding: 0.45rem 1.25rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .mark-done-btn:hover { background: var(--brown-mid); }
+
+  /* CONTENT AREA */
+  .content-area {
+    padding: 2.5rem 3rem;
+    max-width: 820px;
+  }
+
+  .content-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid rgba(44,26,14,0.07);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 16px rgba(44,26,14,0.04);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .content-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid rgba(44,26,14,0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(232,106,26,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-icon svg { width: 18px; height: 18px; }
+
+  .card-header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--brown);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-header-text p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .card-body {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .card-body p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .card-body p:last-child { margin-bottom: 0; }
+
+  /* DASHED ARROW DIVIDER */
+  .arrow-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 2rem;
+    margin: 0.25rem 0;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+  }
+
+  .arrow-divider.visible { opacity: 1; }
+
+  .arrow-divider svg {
+    width: 60px;
+    height: 40px;
+    color: var(--sand-dark);
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .check-badge {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(232,106,26,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .check-badge svg {
+    width: 9px;
+    height: 9px;
+    stroke: var(--orange);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* REFLECTION BOX */
+  .reflection {
+    background: linear-gradient(135deg, rgba(232,106,26,0.06) 0%, rgba(245,149,106,0.04) 100%);
+    border: 1px solid rgba(232,106,26,0.15);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .reflection-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+  }
+
+  .reflection p {
+    font-size: 0.875rem;
+    color: var(--brown-mid);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  /* NEXT LESSON CARD */
+  .next-card {
+    background: var(--brown);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+  }
+
+  .next-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .next-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 100% 50%, rgba(232,106,26,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .next-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,230,211,0.45);
+    margin-bottom: 0.4rem;
+  }
+
+  .next-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--sand);
+  }
+
+  .next-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+    background: var(--orange);
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .next-btn:hover { background: var(--orange-light); transform: translateX(2px); }
+
+  @media (max-width: 900px) {
+    :root { --sidebar-w: 260px; }
+    .video-section, .content-area { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+
+  @media (max-width: 680px) {
+    .layout { flex-direction: column; height: auto; }
+    .sidebar { width: 100%; height: auto; max-height: 300px; }
+    .topbar .progress-wrap { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="kurser.html" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tillbaka
+    </a>
+    <div class="topbar-divider"></div>
+    <span class="course-title-top">Idén om kursidén</span>
+  </div>
+  <div class="topbar-right">
+    <div class="progress-wrap">
+      <span class="progress-label">Din progress</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-pct">18%</span>
+    </div>
+    <div class="user-avatar">E</div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Välkommen till Kursettan</h2>
+      <div class="overall-progress">
+        <div class="overall-bar"><div class="overall-fill"></div></div>
+        <span class="overall-pct">18% klart</span>
+      </div>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Lärvärderingar</div>
+      <a class="lesson done" href="#" onclick="loadLesson(this, 'Välkommen!'); return false;">
+        <div class="lesson-circle"><svg class="check-icon" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
+        <span class="lesson-name">Välkommen!</span>
+      </a>
+      <a class="lesson done" href="#" onclick="loadLesson(this, 'Introduktion till lärvärderingar'); return false;">
+        <div class="lesson-circle"><svg class="check-icon" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
+        <span class="lesson-name">Introduktion till lärvärderingar</span>
+      </a>
+      <a class="lesson done" href="#" onclick="loadLesson(this, 'Ditt syfte – din ikigai – ditt varför'); return false;">
+        <div class="lesson-circle"><svg class="check-icon" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
+        <span class="lesson-name">Ditt syfte – din ikigai – ditt varför</span>
+      </a>
+      <a class="lesson done" href="#" onclick="loadLesson(this, 'Kanvas Ikigai'); return false;">
+        <div class="lesson-circle"><svg class="check-icon" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>
+        <span class="lesson-name">Kanvas Ikigai</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Att växa, lyfta och utvecklas'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Att växa, lyfta och utvecklas</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning lärvärderingar'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning lärvärderingar</span>
+      </a>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Begreppsbild</div>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Introduktion av olika begrepp'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Introduktion av olika begrepp</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Vad är en "kurs"?'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Vad är en "kurs"?</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Begrepp i lärplattformen'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Begrepp i lärplattformen – och hur de fungerar</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning begreppsbild'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning begreppsbild</span>
+      </a>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Idé – kursidé</div>
+      <a class="lesson active" href="#" onclick="loadLesson(this, 'Introduktion till kursidé'); return false;">
+        <div class="lesson-circle"><div class="play-dot"></div></div>
+        <span class="lesson-name">Introduktion till kursidé</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Min idé'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Min idé</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Vilken bra idé!'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Vilken bra idé!</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning kursidé'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning kursidé</span>
+      </a>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Format</div>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Introduktion till olika format'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Introduktion till olika format</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Online – när och var som helst'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Online – när och var som helst</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Hybrid – en härlig mix'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Hybrid – en härlig mix</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Stöd – en handbok att ha med'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Stöd – en handbok att ha med</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning format'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning format</span>
+      </a>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Synopsis</div>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Introduktion synopsis'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Introduktion synopsis</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Hur jobbar jag med synopsis'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Hur jobbar jag med synopsis</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'AI-hjälp till synopsis'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">AI-hjälp till synopsis</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning synopsis'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning synopsis</span>
+      </a>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Storyboard</div>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Introduktion till storyboard'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Introduktion till storyboard</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Story till film'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Story till film</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'AI-hjälp till filmer'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">AI-hjälp till filmer</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning Storyboard'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning Storyboard</span>
+      </a>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-title">Känsla, sceneri och utrustning</div>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Introduktion känsla, sceneri och utrustning'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Introduktion känsla, sceneri och utrustning</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Utrustning – ett kapitel för sig'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Utrustning – ett kapitel för sig</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning känsla, sceneri och utrustning'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning känsla, sceneri och utrustning</span>
+      </a>
+    </div>
+
+    <div class="chapter" style="border-bottom:none;">
+      <div class="chapter-title">Storytelling – den röda tråden</div>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Introduktion Storytelling'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Introduktion Storytelling</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Storytellern – möjliggöraren'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Storytellern – möjliggöraren</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Telling stories'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Telling stories</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Motivation och medvetna val'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Motivation och medvetna val</span>
+      </a>
+      <a class="lesson" href="#" onclick="loadLesson(this, 'Sammanfattning av den röda tråden'); return false;">
+        <div class="lesson-circle"></div>
+        <span class="lesson-name">Sammanfattning av den röda tråden</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="mainContent">
+
+    <!-- VIDEO -->
+    <div class="video-section">
+      <div class="lesson-meta">
+        <span class="chapter-pill">Idé – kursidé</span>
+        <span class="lesson-num">Lektion 9 av 35</span>
+      </div>
+      <h1 id="lessonTitle">Introduktion till kursidé</h1>
+      <div class="video-container">
+        <iframe id="videoFrame"
+          src="https://www.youtube.com/embed/qz0aGYrrlhU"
+          title="Introduktion till kursidé"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+      <div class="video-nav">
+        <button class="nav-btn">
+          ← Föregående lektion
+        </button>
+        <button class="mark-done-btn" onclick="markDone()">
+          ✓ Markera som klar
+        </button>
+        <button class="nav-btn">
+          Nästa lektion →
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+
+      <div class="content-card" id="card1">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e86a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+            </svg>
+          </div>
+          <div class="card-header-text">
+            <h3>Vilken kurs vill jag skapa?</h3>
+            <p>Reflektion &amp; inspiration</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Hur kan jag hitta en idé till min första kurs? Det är med kurser som det är med det mesta här i livet — det ska vara roligt att ha koll, annars är det inte kul!</p>
+          <p>Det innebär att fokus ska vara på det du själv gillar att göra i första hand och det andra vill att du ska göra i andra hand. En riktigt bra kurs är skapad av någon som älskar det de gör!</p>
+          <p>Lite inspiration kan du få genom att fundera över:</p>
+          <ul class="checklist">
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Upplägg du redan har som kan paketeras om – smart paketering</li>
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Kurser du själv gått men som man kan göra bättre – bättre upplägg</li>
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Format du vill testa och utforska – nyfikenhet</li>
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Ämnen du själv vill lära dig mer av – du mästrar ett ämne först när du lär ut till andra</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow-divider" id="arrow1">
+        <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 8 Q30 8 30 20 Q30 32 50 32" stroke="#e8d5bd" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+          <polyline points="45,28 50,32 45,36" stroke="#e8d5bd" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="content-card" id="card2">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e86a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v6h6"/>
+            </svg>
+          </div>
+          <div class="card-header-text">
+            <h3>Vad vill jag skapa med min kurs?</h3>
+            <p>Syfte &amp; målgrupp</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Vi ska i denna lektion titta nämre på:</p>
+          <ul class="checklist">
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Ditt syfte med kursen</li>
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Kursens målgrupp</li>
+            <li><div class="check-badge"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Värdet kursen skapar för målgruppen</li>
+          </ul>
+
+          <div class="reflection">
+            <div class="reflection-label">Reflektionsfråga</div>
+            <p>Vilket värde skapar kursen för dig och andra? Vad är det du vill att deltagarna ska känna, kunna eller göra efter kursen är klar?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-divider" id="arrow2">
+        <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 8 Q30 8 30 20 Q30 32 50 32" stroke="#e8d5bd" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+          <polyline points="45,28 50,32 45,36" stroke="#e8d5bd" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="content-card" id="card3">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e86a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+          </div>
+          <div class="card-header-text">
+            <h3>Din uppgift</h3>
+            <p>Öva &amp; tillämpa</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Skriv ner tre möjliga kursidéer du har. Fundera på vilken målgrupp varje idé passar bäst för och vad deltagarna konkret ska kunna göra efter kursen.</p>
+          <p>Dela gärna din idé i communityt — du vet aldrig vem som kan bli din första deltagare!</p>
+        </div>
+      </div>
+
+      <!-- NEXT LESSON -->
+      <div class="next-card" id="nextCard">
+        <div>
+          <div class="next-label">Nästa lektion</div>
+          <div class="next-title">Min idé</div>
+        </div>
+        <button class="next-btn">
+          Fortsätt →
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // Scroll reveal for content cards
+  const cards = document.querySelectorAll('.content-card, .arrow-divider, .next-card');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(el => revealObs.observe(el));
+
+  // Lesson click
+  function loadLesson(el, title) {
+    document.querySelectorAll('.lesson').forEach(l => {
+      l.classList.remove('active');
+      if (!l.classList.contains('done')) {
+        l.querySelector('.lesson-circle').innerHTML = '';
+      }
+    });
+    el.classList.add('active');
+    const circle = el.querySelector('.lesson-circle');
+    circle.innerHTML = '<div class="play-dot"></div>';
+
+    document.getElementById('lessonTitle').textContent = title;
+
+    // Reset and re-animate cards
+    cards.forEach(c => c.classList.remove('visible'));
+    setTimeout(() => {
+      cards.forEach((c, i) => {
+        setTimeout(() => c.classList.add('visible'), i * 120);
+      });
+    }, 100);
+
+    document.getElementById('mainContent').scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Mark done
+  function markDone() {
+    const active = document.querySelector('.lesson.active');
+    if (active && !active.classList.contains('done')) {
+      active.classList.add('done');
+      const circle = active.querySelector('.lesson-circle');
+      circle.innerHTML = '<svg class="check-icon" viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg>';
+      circle.style.background = 'var(--orange)';
+      circle.style.borderColor = 'var(--orange)';
+    }
+  }
+
+  // Initial reveal trigger
+  setTimeout(() => {
+    cards.forEach((c, i) => {
+      setTimeout(() => c.classList.add('visible'), 200 + i * 150);
+    });
+  }, 300);
+</script>
+
+</body>
+</html>
